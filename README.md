@@ -38,21 +38,49 @@ function QuestA()
     elseif free == "Clown Pirate" then
         CFrameQuest = CFrame.new(-71.5784531, 36.4347496, 50.7921715, 0.00707866857, 2.668971e-08, 0.999974966, -5.85915032e-08, 1, -2.62756199e-08, -0.999974966, -5.84040372e-08, 0.00707866857)
         QuestZ = "Clown Pirate Quest"
+    elseif free == "Marine" then
+        CFrameQuest = CFrame.new(848.661377, 35.5073013, 1264.83777, -0.998497367, 5.36386899e-08, 0.0548002385, 5.90094018e-08, 1, 9.63871685e-08, -0.0548002385, 9.94760612e-08, -0.998497367)
+        QuestZ = "Marine Quest" 
+    elseif free == "Monkey" then
+        CFrameQuest = CFrame.new(771.192871, 42.3243141, -1220.74805, -0.996942639, 2.59707669e-08, 0.0781369284, 2.55865924e-08, 1, -5.91784355e-09, -0.0781369284, -3.90049282e-09, -0.996942639)
+        QuestZ = "Monkey Quest"  
+    elseif free == "Monkey King" then
+        CFrameQuest = CFrame.new(727.094971, 42.2545357, -1380.22131, -0.0418852083, 2.64795439e-08, 0.999122441, -2.36735005e-08, 1, -2.74952416e-08, -0.999122441, -2.48043701e-08, -0.0418852083)
+        QuestZ = "Monkey King Quest"  
+    elseif free == "Snow Bandit" then
+        CFrameQuest = CFrame.new(1507.57898, 102.05999, -290.12558, -0.998586833, -8.202373e-09, -0.0531440228, -1.01186872e-08, 1, 3.57898209e-08, 0.0531440228, 3.62769903e-08, -0.998586833)
+        QuestZ = "Snow Bandit Quest"  
     elseif free == "Bomb Man" or free == "Sand Man" or free == "Snow Bandit Leader" then
         CFrameQuest = nil
         QuestZ = nil
     end
 end
 
+
 function CheckLevel()
     local MyLevel = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Level.TextLabel.Text:match('%d+'))
     
-    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 14)) then
+    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 39)) then
         free = "Bandit"
         QuestZ = "Bandit Quest"
-    elseif MyLevel and (MyLevel >= 15 and MyLevel <= 49) then
+    elseif MyLevel and (MyLevel >= 40 and MyLevel <= 79) then
         free = "Bandit Leader"
         QuestZ = "Bandit Leader Quest"
+    elseif MyLevel and (MyLevel >= 80 and MyLevel <= 299) then
+        free = "Clown Pirate"
+        QuestZ = "Clown Pirate Quest"
+    elseif MyLevel and (MyLevel >= 300 and MyLevel <= 749) then
+        free = "Marine"
+        QuestZ = "Marine Quest"
+    elseif MyLevel and (MyLevel >= 750 and MyLevel <= 999) then
+        free = "Monkey"
+        QuestZ = "Monkey Quest"
+    elseif MyLevel and (MyLevel >= 1000 and MyLevel <= 1699) then
+        free = "Monkey King"
+        QuestZ = "Monkey King Quest"
+    elseif MyLevel and (MyLevel >= 1700 and MyLevel <= 8499) then
+        free = "Snow Bandit"
+        QuestZ = "Snow Bandit Quest"
     end
 end
 
