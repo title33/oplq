@@ -1,4 +1,4 @@
-_G.bringmob = true
+
 
 function TP(targetCFrame)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
@@ -6,7 +6,7 @@ end
 
 function MonA()
     free = free or "Bandit"
-    
+
     if free == "Bandit" then
         MONName = "Bandit [LV.5]"
     elseif free == "Bandit Leader" then
@@ -163,29 +163,21 @@ spawn(function()
     end
 end)
 
+_G.bringmob = true
+
 spawn(function()
     while _G.bringmob do
         wait()
         pcall(function()
-            for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                for x, y in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if v.Name == MONName then
-                        if y.Name == MONName then
-                            v.HumanoidRootPart.CFrame = y.HumanoidRootPart.CFrame
-                            v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                            y.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                            v.HumanoidRootPart.Transparency = 1
-                            v.HumanoidRootPart.CanCollide = false
-                            y.HumanoidRootPart.CanCollide = false
-                            v.Humanoid.WalkSpeed = 0
-                            y.Humanoid.WalkSpeed = 0
-                            v.Humanoid.JumpPower = 0
-                            y.Humanoid.JumpPower = 0
-                            if sethiddenproperty then
-                                sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-                            end
-                        end
-                    end
+            local enemy = game:GetService("Workspace").Enemies:FindFirstChild(MONName)
+            if enemy then
+                enemy.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                enemy.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
+                enemy.HumanoidRootPart.Transparency = 1
+                enemy.HumanoidRootPart.CanCollide = false
+                enemy.Humanoid.WalkSpeed = 0
+                if sethiddenproperty then
+                    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", 500)
                 end
             end
         end)
