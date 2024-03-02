@@ -1,5 +1,3 @@
-
-
 function TP(targetCFrame)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
 end
@@ -30,7 +28,6 @@ function MonA()
     end
 end
 
-
 function QuestA()
     if free == "Bandit" then
         CFrameQuest = CFrame.new(-953.566528, 34.5999947, -552.164612, -0.0109250434, -3.3378329e-09, -0.999940336, 1.94075778e-09, 1, -3.35923622e-09, 0.999940336, -1.97734162e-09, -0.0109250434)
@@ -58,7 +55,6 @@ function QuestA()
         QuestZ = nil
     end
 end
-
 
 function CheckLevel()
     local MyLevel = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Level.TextLabel.Text:match('%d+'))
@@ -105,15 +101,19 @@ spawn(function()
         pcall(function()
             CheckLevel()
             MonA()
-            for _,v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
-                if v.Humanoid.DisplayName == MONName and v.Humanoid.Health > 0 then
+            for _, v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
+                if v:FindFirstChild("Humanoid") and v.Humanoid.DisplayName == MONName and v.Humanoid.Health > 0 then
+                    print("Found", v.Name, MONName)  -- Debugging output
+
                     v.HumanoidRootPart.Size = Vector3.new(10,10,10)
                     v.HumanoidRootPart.Transparency = 0.9
                     v.Humanoid.WalkSpeed = 0
                     v.Humanoid.JumpPower = 0
-                    repeat task.wait()
+
+                    repeat
+                        task.wait()
                         AA()
-                        TP(v.HumanoidRootPart.CFrame*CFrame.new(0,5,0)*CFrame.Angles(math.rad(-90),0,0))
+                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
                     until not _G.Farn or v.Humanoid.Health <= 0
                 end
             end
@@ -128,7 +128,8 @@ spawn(function()
             CheckLevel()
             QuestA()
             if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
-                repeat task.wait()
+                repeat
+                    task.wait()
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
                 until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
             end
@@ -136,7 +137,7 @@ spawn(function()
     end
 end)
 
-for i, v in ipairs(workspace.Lives:GetChildren()) do
+for _, v in ipairs(workspace.Lives:GetChildren()) do
     if not game:GetService("Players"):GetPlayerFromCharacter(v) then
         local cleanedName = string.gsub(v.Name, "%d+$", "")
         v.Name = tostring(cleanedName)
@@ -155,7 +156,7 @@ spawn(function()
     while _G.Farn do
         wait()
         pcall(function()
-            for i, v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            for _, v in pairs(game:GetService("Workspace"):GetDescendants()) do
                 if v.Name == "ProximityPrompt" then
                     fireproximityprompt(v, 30)
                 end
@@ -164,35 +165,25 @@ spawn(function()
     end
 end)
 
-
 _G.bringmob = true
 
 spawn(function()
     while _G.bringmob do
         wait()
-
         pcall(function()
-            for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                for x, y in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if v:FindFirstChild("HumanoidRootPart") and y:FindFirstChild("HumanoidRootPart") then
-                        if v.Name == MONName and y.Name == MONName then
-                            print(v.Name, y.Name, MONName) -- Debugging output
+            for _, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                if v:FindFirstChild("HumanoidRootPart") and v.Name == MONName then
+                    print("Bringing", v.Name, MONName)  -- Debugging output
 
-                            v.HumanoidRootPart.CFrame = y.HumanoidRootPart.CFrame
-                            v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                            y.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                            v.HumanoidRootPart.Transparency = 1
-                            v.HumanoidRootPart.CanCollide = false
-                            y.HumanoidRootPart.CanCollide = false
-                            v.Humanoid.WalkSpeed = 0
-                            y.Humanoid.WalkSpeed = 0
-                            v.Humanoid.JumpPower = 0
-                            y.Humanoid.JumpPower = 0
+                    v.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)  -- Replace this with your desired position
+                    v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
+                    v.HumanoidRootPart.Transparency = 1
+                    v.HumanoidRootPart.CanCollide = false
+                    v.Humanoid.WalkSpeed = 0
+                    v.Humanoid.JumpPower = 0
 
-                            if sethiddenproperty then
-                                sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-                            end
-                        end
+                    if sethiddenproperty then
+                        sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
                     end
                 end
             end
