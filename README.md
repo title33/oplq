@@ -169,17 +169,18 @@ spawn(function()
     while _G.bringmob do
         wait()
         pcall(function()
-            local enemy = game:GetService("Workspace").Enemies:FindFirstChild(MONName)
-            if enemy then
-                enemy.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                enemy.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                enemy.HumanoidRootPart.Transparency = 1
-                enemy.HumanoidRootPart.CanCollide = false
-                enemy.Humanoid.WalkSpeed = 0
-                if sethiddenproperty then
-                    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", 500)
-                end
-            end
+local enemy = game:GetService("Workspace").Enemies:FindFirstChild(MONName)
+if enemy then
+    enemy.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    enemy.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
+    enemy.HumanoidRootPart.Transparency = 1
+    enemy.HumanoidRootPart.CanCollide = false
+    enemy.Humanoid.WalkSpeed = 0
+    if sethiddenproperty then
+        sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", 500)
+    end
+end
+
         end)
     end
 end)
