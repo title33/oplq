@@ -1,5 +1,8 @@
+function TP(targetCFrame)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
+end
+
 function MonA()
-    -- กำหนดค่าเริ่มต้นหาก free ไม่ได้ถูกกำหนดค่า
     free = free or "Bandit"
     
     if free == "Bandit" then
@@ -35,7 +38,6 @@ function QuestA()
     elseif free == "Clown Pirate" then
         CFrameQuest = CFrame.new(-71.5784531, 36.4347496, 50.7921715, 0.00707866857, 2.668971e-08, 0.999974966, -5.85915032e-08, 1, -2.62756199e-08, -0.999974966, -5.84040372e-08, 0.00707866857)
         QuestZ = "Clown Pirate Quest"
-    -- เพิ่มเควสต่าง ๆ ขึ้นอยู่กับมอนสเตอร์และเลเวล
     elseif free == "Bomb Man" or free == "Sand Man" or free == "Snow Bandit Leader" then
         CFrameQuest = nil
         QuestZ = nil
@@ -51,18 +53,17 @@ function CheckLevel()
     elseif MyLevel and (MyLevel >= 15 and MyLevel <= 49) then
         free = "Bandit Leader"
         QuestZ = "Bandit Leader Quest"
-    -- เพิ่มเงื่อนไขเช็คเลเวลและเควสต่าง ๆ ตามที่ต้องการ
     end
 end
 
 function AA()
-    game:GetService'VirtualUser':CaptureController()
-    game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):Button1Down(Vector2.new(1280, 672))
 end
 
 function A()
-    game:GetService'VirtualUser':CaptureController()
-    game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):Button1Down(Vector2.new(1280, 672))
 end
 
 _G.Farn = true
@@ -118,3 +119,17 @@ workspace.Lives.ChildAdded:Connect(function(model)
         model.Name = cleanedName
     end
 end)
+
+spawn(function()
+    while _G.Farn do
+        wait()
+        pcall(function()
+            for i, v in pairs(game:GetService("Workspace"):GetDescendants()) do
+                if v.Name == "ProximityPrompt" then
+                    fireproximityprompt(v, 30)
+                end
+            end
+        end)
+    end
+end)
+
