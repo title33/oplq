@@ -165,28 +165,22 @@ spawn(function()
     end
 end)
 
-_G.bringmob = true
+local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text)
+local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Katana")
 
-spawn(function()
-    while _G.bringmob do
-        wait()
-        pcall(function()
-            for _, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                if v:FindFirstChild("HumanoidRootPart") and v.Name == MONName then
-                    print("Bringing", v.Name, MONName)  -- Debugging output
+if beli == 2500 and Katana then
+    _G.Farn = false
 
-                    v.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)  -- Replace this with your desired position
-                    v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
-                    v.HumanoidRootPart.Transparency = 1
-                    v.HumanoidRootPart.CanCollide = false
-                    v.Humanoid.WalkSpeed = 0
-                    v.Humanoid.JumpPower = 0
-
-                    if sethiddenproperty then
-                        sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-                    end
-                end
-            end
-        end)
+    for i, v in pairs(game:GetService("Workspace").Shop.Katana:GetChildren()) do
+        if v.ClassName == "ProximityPrompt" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+            wait()
+            fireproximityprompt(v, 30)
+        end
     end
-end)
+
+    wait(1)
+
+    _G.Farn = true
+end
+
