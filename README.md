@@ -125,19 +125,32 @@ spawn(function()
 end)
 
 spawn(function()
-	while true do
-		wait()
-		pcall(function()
-			CheckLevel()
-			QuestA()
-			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
-				repeat
-					task.wait(1)  -- รอ 1 วินาที
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
-				until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
-			end
-		end)
-	end
+    while true do
+        wait()
+        pcall(function()
+            CheckLevel()
+            QuestA()
+            if CFrameQuest then
+                local QuestUI = game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
+                if not QuestUI then
+                    wait(1)  -- รอ 1 วินาที
+                    repeat
+                        task.wait(1)  -- รอ 1 วินาที
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
+                    until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
+                else
+                    -- ทำต่อไปเมื่อมีการรับเควส
+                    -- ตรวจสอบว่ามีการรับเควสตรงกับมอนหรือไม่
+                    for _, v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
+                        if v:FindFirstChild("Humanoid") and v.Humanoid.DisplayName == MONName and v.Humanoid.Health > 0 then
+                            QuestUI:Destroy()  -- ยกเลิกการทำเควส (ถ้าอยู่ใน UI)
+                            break
+                        end
+                    end
+                end
+            end
+        end)
+    end
 end)
 
 
