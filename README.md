@@ -132,13 +132,14 @@ spawn(function()
 			QuestA()
 			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
 				repeat
-					task.wait()
+					task.wait(1)  -- รอ 1 วินาที
 					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
 				until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
 			end
 		end)
 	end
 end)
+
 
 for _, v in ipairs(workspace.Lives:GetChildren()) do
 	if not game:GetService("Players"):GetPlayerFromCharacter(v) then
