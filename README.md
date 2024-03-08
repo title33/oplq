@@ -28,6 +28,45 @@ function MonA()
     end
 end
 
+function BossA()
+    Bo = Bo or "Bandit"
+    
+    if Bo == "ไม่เลือก" then
+        BossName = "ไม่เลือก [LV.0]"
+    elseif Bo == "Natsu" then
+        BossName = "Natsu [LV.5]"
+    elseif Bo == "Choso" then
+        BossName = "Choso [LV.10]"
+    elseif Bo == "Ichigo" then
+        BossName = "Ichigo [LV.15]"
+    elseif Bo == "Killua" then
+        BossName = "Killua [LV.20]"
+    elseif Bo == "Gojo [Unleashed]" then
+        BossName = "Gojo [Unleashed] [LV.25]"
+    elseif Bo == "Sukuna [Half Power]" then
+        BossName = "Sukuna [Half Power] [LV.30]"
+    elseif Bo == "Gojo" then
+        BossName = "Gojo [LV.35]"
+    elseif Bo == "Sukuna" then
+        BossName = "Sukuna [LV.40]"
+    elseif Bo == "Shank" then
+        BossName = "Shank [LV.45]"
+    elseif Bo == "Kashimo" then
+        BossName = "Kashimo [LV.50]"
+    elseif Bo == "Artoria" then
+        BossName = "Artoria [LV.55]"
+    elseif Bo == "Bomb Man" then
+        BossName = "Bomb Man [LV.60]"
+    elseif Bo == "Sand Man" then
+        BossName = "Sand Man [LV.65]"
+    elseif Bo == "Monkey King" then
+        BossName = "Monkey King [LV.70]"
+    elseif Bo == "Bandit Leader" then
+        BossName = "Bandit Leader [LV.75]"
+    end
+end
+
+
 function QuestA()
     if free == "Bandit" then
         CFrameQuest = CFrame.new(-953.566528, 34.5999947, -552.164612, -0.0109250434, -3.3378329e-09, -0.999940336, 1.94075778e-09, 1, -3.35923622e-09, 0.999940336, -1.97734162e-09, -0.0109250434)
@@ -59,27 +98,15 @@ end
 function CheckLevel()
     local MyLevel = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Level.TextLabel.Text:match('%d+'))
     
-    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 39)) then
+    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 99)) then
         free = "Bandit"
         QuestZ = "Bandit Quest"
-    elseif MyLevel and (MyLevel >= 40 and MyLevel <= 79) then
-        free = "Bandit Leader"
+    elseif MyLevel and (MyLevel >= 100 and MyLevel <= 149) then
+      free = "Bandit Leader"
         QuestZ = "Bandit Leader Quest"
-    elseif MyLevel and (MyLevel >= 80 and MyLevel <= 299) then
-        free = "Clown Pirate"
-        QuestZ = "Clown Pirate Quest"
-    elseif MyLevel and (MyLevel >= 300 and MyLevel <= 749) then
-        free = "Marine"
-        QuestZ = "Marine Quest"
-    elseif MyLevel and (MyLevel >= 750 and MyLevel <= 999) then
-        free = "Monkey"
-        QuestZ = "Monkey Quest"
-    elseif MyLevel and (MyLevel >= 1000 and MyLevel <= 1699) then
-        free = "Monkey King"
-        QuestZ = "Monkey King Quest"
-    elseif MyLevel and (MyLevel >= 1700 and MyLevel <= 8499) then
-        free = "Snow Bandit"
-        QuestZ = "Snow Bandit Quest"
+    elseif MyLevel and (MyLevel >= 150 and MyLevel <= 6999) then
+        Bo = "Shank"
+        QuestZ = "nil"
     end
 end
 
@@ -101,9 +128,10 @@ spawn(function()
         pcall(function()
             CheckLevel()
             MonA()
+            BossA()
             for _, v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
-                if v:FindFirstChild("Humanoid") and v.Humanoid.DisplayName == MONName and v.Humanoid.Health > 0 then
-                    print("Found", v.Name, MONName)  -- Debugging output
+                if v:FindFirstChild("Humanoid") and (v.Humanoid.DisplayName == MONName or v.Humanoid.DisplayName == BossName) and v.Humanoid.Health > 0 then
+                    print("Found", v.Name, MONName or BossName)  -- Debugging output
 
                     v.HumanoidRootPart.Size = Vector3.new(10,10,10)
                     v.HumanoidRootPart.Transparency = 0.9
@@ -120,6 +148,7 @@ spawn(function()
         end)
     end
 end)
+
 
 spawn(function()
     while true do
@@ -165,11 +194,18 @@ spawn(function()
     end
 end)
 
-local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text)
-local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Katana")
+-------------------------------Katana-------------------------------
 
-if beli == 2500 and Katana then
-    _G.Farn = false
+_G.Katana = true
+
+spawn(function()
+while wait() do
+pcall(function()
+if _G.Katana then
+local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text) 
+local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Katana") then
+if beli == 2500 and not Katana then
+    _G.Farn = false 
 
     for i, v in pairs(game:GetService("Workspace").Shop.Katana:GetChildren()) do
         if v.ClassName == "ProximityPrompt" then
@@ -179,8 +215,77 @@ if beli == 2500 and Katana then
         end
     end
 
-    wait(1)
+ else
+    _G.Farn = true 
 
-    _G.Farn = true
-end
+                                end
+                        end
+                end)
+        end
+end)
+
+-------------------------------Yoru-------------------------------
+
+_G.Yoru = true
+
+spanw(function()
+while wait() do
+pacall(function()
+if _G.Yoru then
+local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text)
+local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Yoru") then
+if bell == 5000000 and not Yoru then
+_G.Farn = false
+    for i, v in pairs(game:GetService("Workspace").Shop.Yoru:GetChildren()) do
+        if v.ClassName == "ProximityPrompt" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+            wait()
+            fireproximityprompt(v, 30)
+        end
+    end
+
+ else
+    _G.Farn = true 
+
+                                end
+                        end
+                end)
+        end
+end)
+
+
+_G.M = true
+
+spawn(function()
+while wait(.1) do
+    pcall(function()
+if _G.M then
+local args = {
+    [1] = "Melee",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage").Remotes.UpStats:FireServer(unpack(args))
+
+                end
+        end)
+   end
+end)
+
+_G.Eq = true
+
+spawn(function()
+    while true do
+        wait()
+        if _G.Eq then
+            pcall(function()
+                for _, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v.Name == "Combat" then
+                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    end
+                end
+            end)
+        end
+    end
+end)
 
