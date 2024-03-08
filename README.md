@@ -28,43 +28,7 @@ function MonA()
 	end
 end
 
-function BossA()
-	Bo = Bo or "Bandit"
 
-	if Bo == "ไม่เลือก" then
-		BossName = "ไม่เลือก [LV.0]"
-	elseif Bo == "Natsu" then
-		BossName = "Natsu [LV.5]"
-	elseif Bo == "Choso" then
-		BossName = "Choso [LV.10]"
-	elseif Bo == "Ichigo" then
-		BossName = "Ichigo [LV.15]"
-	elseif Bo == "Killua" then
-		BossName = "Killua [LV.20]"
-	elseif Bo == "Gojo [Unleashed]" then
-		BossName = "Gojo [Unleashed] [LV.25]"
-	elseif Bo == "Sukuna [Half Power]" then
-		BossName = "Sukuna [Half Power] [LV.30]"
-	elseif Bo == "Gojo" then
-		BossName = "Gojo [LV.35]"
-	elseif Bo == "Sukuna" then
-		BossName = "Sukuna [LV.40]"
-	elseif Bo == "Shank" then
-		BossName = "Shank [LV.45]"
-	elseif Bo == "Kashimo" then
-		BossName = "Kashimo [LV.50]"
-	elseif Bo == "Artoria" then
-		BossName = "Artoria [LV.55]"
-	elseif Bo == "Bomb Man" then
-		BossName = "Bomb Man [LV.60]"
-	elseif Bo == "Sand Man" then
-		BossName = "Sand Man [LV.65]"
-	elseif Bo == "Monkey King" then
-		BossName = "Monkey King [LV.70]"
-	elseif Bo == "Bandit Leader" then
-		BossName = "Bandit Leader [LV.75]"
-	end
-end
 
 
 function QuestA()
@@ -96,18 +60,30 @@ function QuestA()
 end
 
 function CheckLevel()
-	local MyLevel = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Level.TextLabel.Text:match('%d+'))
-
-	if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 99)) then
-		free = "Bandit"
-		QuestZ = "Bandit Quest"
-	elseif MyLevel and (MyLevel >= 100 and MyLevel <= 149) then
-		free = "Bandit Leader"
-		QuestZ = "Bandit Leader Quest"
-	elseif MyLevel and (MyLevel >= 150 and MyLevel <= 6999) then
-		Bo = "Shank"
-		QuestZ = "nil"
-	end
+    local MyLevel = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Level.TextLabel.Text:match('%d+'))
+    
+    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 39)) then
+        free = "Bandit"
+        QuestZ = "Bandit Quest"
+    elseif MyLevel and (MyLevel >= 40 and MyLevel <= 79) then
+        free = "Bandit Leader"
+        QuestZ = "Bandit Leader Quest"
+    elseif MyLevel and (MyLevel >= 80 and MyLevel <= 299) then
+        free = "Clown Pirate"
+        QuestZ = "Clown Pirate Quest"
+    elseif MyLevel and (MyLevel >= 300 and MyLevel <= 749) then
+        free = "Marine"
+        QuestZ = "Marine Quest"
+    elseif MyLevel and (MyLevel >= 750 and MyLevel <= 999) then
+        free = "Monkey"
+        QuestZ = "Monkey Quest"
+    elseif MyLevel and (MyLevel >= 1000 and MyLevel <= 1699) then
+        free = "Monkey King"
+        QuestZ = "Monkey King Quest"
+    elseif MyLevel and (MyLevel >= 1700 and MyLevel <= 8499) then
+        free = "Snow Bandit"
+        QuestZ = "Snow Bandit Quest"
+    end
 end
 
 function AA()
@@ -123,32 +99,30 @@ end
 _G.Farn = true
 
 spawn(function()
-	while true do
-		wait()
-		pcall(function()
-			CheckLevel()
-			MonA()
-			BossA()
-			for _, v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
-				if v:FindFirstChild("Humanoid") and (v.Humanoid.DisplayName == MONName or v.Humanoid.DisplayName == BossName) and v.Humanoid.Health > 0 then
-					print("Found", v.Name, MONName or BossName)  -- Debugging output
+    while true do
+        wait()
+        pcall(function()
+            CheckLevel()
+            MonA()
+            for _, v in pairs(game:GetService("Workspace").Lives:GetChildren()) do
+                if v:FindFirstChild("Humanoid") and v.Humanoid.DisplayName == MONName and v.Humanoid.Health > 0 then
+                    print("Found", v.Name, MONName)  -- Debugging output
 
-					v.HumanoidRootPart.Size = Vector3.new(10,10,10)
-					v.HumanoidRootPart.Transparency = 0.9
-					v.Humanoid.WalkSpeed = 0
-					v.Humanoid.JumpPower = 0
+                    v.HumanoidRootPart.Size = Vector3.new(10,10,10)
+                    v.HumanoidRootPart.Transparency = 0.9
+                    v.Humanoid.WalkSpeed = 0
+                    v.Humanoid.JumpPower = 0
 
-					repeat
-						task.wait()
-						AA()
-						TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
-					until not _G.Farn or v.Humanoid.Health <= 0
-				end
-			end
-		end)
-	end
+                    repeat
+                        task.wait()
+                        AA()
+                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
+                    until not _G.Farn or v.Humanoid.Health <= 0
+                end
+            end
+        end)
+    end
 end)
-
 
 spawn(function()
 	while true do
