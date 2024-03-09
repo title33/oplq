@@ -1,6 +1,5 @@
 function TP(targetCFrame)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
-    wait(1)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
 end
 
 function MonA()
@@ -117,7 +116,8 @@ spawn(function()
                     repeat
                         task.wait()
                         AA()
-                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3))
+                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
+                        task.wait(3)  -- เพิ่มบรรทัดนี้เพื่อรอเวลา 3 วินาที
                     until not _G.Farn or v.Humanoid.Health <= 0
                 end
             end
@@ -126,19 +126,20 @@ spawn(function()
 end)
 
 spawn(function()
-	while true do
-		wait()
-		pcall(function()
-			CheckLevel()
-			QuestA()
-			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
-				repeat
-					task.wait()
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
-				until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
-			end
-		end)
-	end
+    while true do
+        wait()
+        pcall(function()
+            CheckLevel()
+            QuestA()
+            if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
+                repeat
+                    task.wait()
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
+                    task.wait(3)  -- เพิ่มบรรทัดนี้เพื่อรอเวลา 3 วินาที
+                until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
+            end
+        end)
+    end
 end)
 
 for _, v in ipairs(workspace.Lives:GetChildren()) do
