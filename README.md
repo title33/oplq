@@ -117,7 +117,7 @@ spawn(function()
                     repeat
                         task.wait()
                         AA()
-                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
+                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3))
                     until not _G.Farn or v.Humanoid.Health <= 0
                 end
             end
