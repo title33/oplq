@@ -1,5 +1,5 @@
 function TP(targetCFrame)
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame * CFrame.Angles(math.rad(90), 0, 0)
 end
 
 function MonA()
@@ -116,7 +116,7 @@ spawn(function()
                     repeat
                         task.wait()
                         AA()
-                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
+                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0))
                         task.wait(3)  -- เพิ่มบรรทัดนี้เพื่อรอเวลา 3 วินาที
                     until not _G.Farn or v.Humanoid.Health <= 0
                 end
