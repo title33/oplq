@@ -210,7 +210,7 @@ spawn(function()
 			if _G.Yoru then
 				local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text)
 				local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Yoru")
-	if bell == 5000000 and not Yoru then
+	if beli == 5000000 and not Yoru then
 		_G.Farn = false
 		for i, v in pairs(game:GetService("Workspace").Shop.Yoru:GetChildren()) do
 			if v.ClassName == "ProximityPrompt" then
