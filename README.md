@@ -1,5 +1,5 @@
 function TP(targetCFrame)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame * CFrame.Angles(math.rad(90), 0, 0)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetCFrame
 end
 
 function MonA()
@@ -25,6 +25,8 @@ function MonA()
 		MONName = "Snow Bandit [LV.1750]"
 	elseif free == "Snow Bandit Leader" then
 		MONName = "Snow Bandit Leader [LV.2350]"
+	elseif free == "Shank" then
+		MONName = "Shank"
 	end
 end
 
@@ -53,7 +55,7 @@ function QuestA()
 	elseif free == "Snow Bandit" then
 		CFrameQuest = CFrame.new(1507.57898, 102.05999, -290.12558, -0.998586833, -8.202373e-09, -0.0531440228, -1.01186872e-08, 1, 3.57898209e-08, 0.0531440228, 3.62769903e-08, -0.998586833)
 		QuestZ = "Snow Bandit Quest"  
-	elseif free == "Bomb Man" or free == "Sand Man" or free == "Snow Bandit Leader" then
+	elseif free == "Bomb Man" or free == "Sand Man" or free == "Snow Bandit Leader" or free == "Shank" then
 		CFrameQuest = nil
 		QuestZ = nil
 	end
@@ -62,27 +64,15 @@ end
 function CheckLevel()
     local MyLevel = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Level.TextLabel.Text:match('%d+'))
     
-    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 39)) then
+    if MyLevel and (MyLevel == 1 or (MyLevel >= 2 and MyLevel <= 99)) then
         free = "Bandit"
         QuestZ = "Bandit Quest"
-    elseif MyLevel and (MyLevel >= 40 and MyLevel <= 79) then
-        free = "Bandit Leader"
+    elseif MyLevel and (MyLevel >= 100 and MyLevel <= 149) then
+      free = "Bandit Leader"
         QuestZ = "Bandit Leader Quest"
-    elseif MyLevel and (MyLevel >= 80 and MyLevel <= 299) then
-        free = "Clown Pirate"
-        QuestZ = "Clown Pirate Quest"
-    elseif MyLevel and (MyLevel >= 300 and MyLevel <= 749) then
-        free = "Marine"
-        QuestZ = "Marine Quest"
-    elseif MyLevel and (MyLevel >= 750 and MyLevel <= 999) then
-        free = "Monkey"
-        QuestZ = "Monkey Quest"
-    elseif MyLevel and (MyLevel >= 1000 and MyLevel <= 1699) then
-        free = "Monkey King"
-        QuestZ = "Monkey King Quest"
-    elseif MyLevel and (MyLevel >= 1700 and MyLevel <= 8499) then
-        free = "Snow Bandit"
-        QuestZ = "Snow Bandit Quest"
+    elseif MyLevel and (MyLevel >= 150 and MyLevel <= 6999) then
+        free = "Shank"
+        QuestZ = "Shank"
     end
 end
 
@@ -116,8 +106,7 @@ spawn(function()
                     repeat
                         task.wait()
                         AA()
-                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0))
-                        task.wait(3)  -- เพิ่มบรรทัดนี้เพื่อรอเวลา 3 วินาที
+                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0))
                     until not _G.Farn or v.Humanoid.Health <= 0
                 end
             end
@@ -126,20 +115,19 @@ spawn(function()
 end)
 
 spawn(function()
-    while true do
-        wait()
-        pcall(function()
-            CheckLevel()
-            QuestA()
-            if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
-                repeat
-                    task.wait()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
-                    task.wait(3)  -- เพิ่มบรรทัดนี้เพื่อรอเวลา 3 วินาที
-                until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
-            end
-        end)
-    end
+	while true do
+		wait()
+		pcall(function()
+			CheckLevel()
+			QuestA()
+			if not game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI") then
+				repeat
+					task.wait()
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameQuest
+				until not _G.Farn or game.Players.LocalPlayer.PlayerGui:FindFirstChild("QuestUI")
+			end
+		end)
+	end
 end)
 
 for _, v in ipairs(workspace.Lives:GetChildren()) do
@@ -175,29 +163,28 @@ end)
 _G.Katana = true
 
 spawn(function()
-	while wait() do
-		pcall(function()
-			if _G.Katana then
-				local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text) 
-				local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Katana")
-	if beli == 2500 and not Katana then
-		_G.Farn = false 
+    while wait() do
+        pcall(function()
+            if _G.Katana then
+                local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text) 
+                local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Katana")
+                
+                if beli == 2500 and not Katana then
+                    _G.Farn = false 
 
-		for i, v in pairs(game:GetService("Workspace").Shop.Katana:GetChildren()) do
-			if v.ClassName == "ProximityPrompt" then
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-				wait()
-				fireproximityprompt(v, 30)
-			end
-		end
+                    for i, v in pairs(game:GetService("Workspace").Shop.Katana:GetChildren()) do
+                        if v.ClassName == "ProximityPrompt" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                            wait()
+                            fireproximityprompt(v, 30)
+                        end
+                    end
 
-	else
-		_G.Farn = true 
-
-	end
-end
-end)
-end
+                    _G.Farn = true -- แก้ไขตรงนี้ เพื่อเปิด _G.Farn ใหม่
+                end
+            end
+        end)
+    end
 end)
 
 -------------------------------Yoru-------------------------------
@@ -205,29 +192,30 @@ end)
 _G.Yoru = true
 
 spawn(function()
-	while wait() do
-		pcall(function()
-			if _G.Yoru then
-				local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text)
-				local Katana = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Yoru")
-	if beli == 5000000 and not Yoru then
-		_G.Farn = false
-		for i, v in pairs(game:GetService("Workspace").Shop.Yoru:GetChildren()) do
-			if v.ClassName == "ProximityPrompt" then
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-				wait()
-				fireproximityprompt(v, 30)
-			end
-		end
+    while wait() do
+        pcall(function()
+            if _G.Yoru then
+                local beli = tonumber(game.Players.LocalPlayer.PlayerGui.MainUI.Interface.PlayerStatus.Frame.Beli.TextLabel.Text)
+                local Yoru = game.Players.LocalPlayer.PlayerGui.MainUI.Interface.Inventory.WeaponFrame:FindFirstChild("Yoru")
+                
+                if beli == 5000000 and not Yoru then
+                    _G.Farn = false
 
-	else
-		_G.Farn = true 
+                    for i, v in pairs(game:GetService("Workspace").Shop.Yoru:GetChildren()) do
+                        if v.ClassName == "ProximityPrompt" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                            wait()
+                            fireproximityprompt(v, 30)
+                        end
+                    end
 
-	end
-end
+                    _G.Farn = true -- แก้ไขตรงนี้ เพื่อเปิด _G.Farn ใหม่
+                end
+            end
+        end)
+    end
 end)
-end
-end)
+
 
 
 _G.M = true
